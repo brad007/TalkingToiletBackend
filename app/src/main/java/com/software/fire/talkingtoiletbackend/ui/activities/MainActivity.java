@@ -1,5 +1,6 @@
 package com.software.fire.talkingtoiletbackend.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,11 +9,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.FirebaseDatabase;
 import com.software.fire.talkingtoiletbackend.R;
 import com.software.fire.talkingtoiletbackend.models.TalkingToiletModel;
+import com.software.fire.talkingtoiletbackend.ui.dialogs.DeleteDialog;
 import com.software.fire.talkingtoiletbackend.utils.Constants;
 
 public class MainActivity extends AppCompatActivity {
@@ -39,8 +43,33 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseDatabase.getInstance().getReference(Constants.TALKING_TOILET)
         ) {
             @Override
-            protected void populateViewHolder(TalkingToiletViewHolder viewHolder, TalkingToiletModel model, int position) {
+            protected void populateViewHolder(TalkingToiletViewHolder viewHolder, final TalkingToiletModel model, int position) {
 
+                if (model.getIsCrumpled().equals("true")) {
+                    viewHolder.setMethodText("Crumpled");
+                } else {
+                    viewHolder.setMethodText("Folded");
+                }
+                viewHolder.setThinkingText(model.getThoughts());
+
+                viewHolder.delete_iv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        DeleteDialog deleteDialog = new DeleteDialog(model.getUid());
+                        deleteDialog.show(getSupportFragmentManager(), null);
+                    }
+                });
+
+                viewHolder.edit_tv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(MainActivity.this, EditActivity.class);
+                        intent.putExtra(Constants.UID, model.getUid());
+                        intent.putExtra(Constants.IS_CRUMPLED, model.getIsCrumpled());
+                        intent.putExtra(Constants.THOUGHTS, model.getThoughts());
+                        startActivity(intent);
+                    }
+                });
             }
         };
         mTalkingToiletRecycler.setAdapter(mTalkingToiletAdapter);
@@ -66,7 +95,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_view_stats) {
+            startActivity(new Intent(MainActivity.this, ViewStatsActivity.class));
             return true;
         }
 
@@ -74,8 +104,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static class TalkingToiletViewHolder extends RecyclerView.ViewHolder {
+        private TextView method_tv;
+        private TextView thinking_tv;
+
+        private ImageView delete_iv;
+        private ImageView edit_tv;
+
         public TalkingToiletViewHolder(View itemView) {
             super(itemView);
+            method_tv = (TextView) itemView.findViewById(R.id.method_tv);
+            thinking_tv = (TextView) itemView.findViewById(R.id.thinking_tv);
+            delete_iv = (ImageView) itemView.findViewById(R.id.delete_iv);
+            edit_tv = (ImageView) itemView.findViewById(R.id.edit_iv);
+        }
+
+        public void setMethodText(String methodText) {
+            method_tv.setText(methodText);
+        }
+
+        public void setThinkingText(String thinkingText) {
+            thinking_tv.setText(thinkingText);
         }
     }
 }
