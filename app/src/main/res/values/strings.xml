@@ -13,4 +13,9 @@
     <string name="method_result">Everyone\'s method of choice</string>
     <string name="thinking_result">What people are thinking the following</string>
     <string name="location_stats">Locations Stats</string>
+    <string name="sign_in_cancelled">Sign in cancelled</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="sign_in_title">Signing In</string>
+    <string name="sign_in_message">Confirming User</string>
+    <string name="no_access">No unauthorised access</string>
 </resources>

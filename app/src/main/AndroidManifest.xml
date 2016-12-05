@@ -26,7 +26,8 @@
             android:name=".ui.activities.EditActivity"
             android:label="@string/title_activity_edit"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.activities.ViewStatsActivity"></activity>
+        <activity android:name=".ui.activities.ViewStatsActivity" />
+        <activity android:name=".ui.activities.SignInActivity"></activity>
     </application>
 
 </manifest>

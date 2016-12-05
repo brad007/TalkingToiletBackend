@@ -46,6 +46,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "557813729633-i86lnicf66kv3mhjhhdgmj3cl9eaaakc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.software.fire.talkingtoiletbackend",
+            "certificate_hash": "B59F45D65B87179E114C2DD799824B9AB3C07E78"
+          }
+        },
+        {
           "client_id": "557813729633-u01fndrl1i6qelglskutd8as7ute307c.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -60,8 +68,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "557813729633-u01fndrl1i6qelglskutd8as7ute307c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
