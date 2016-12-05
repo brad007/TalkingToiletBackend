@@ -28,13 +28,13 @@ public class ViewStatsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_stats);
         initialiseScreen();
-        setupMethod();
-        setupThinking();
+        setupMethodRadioButton();
+        setupThinkingTextView();
 
     }
 
 
-    private void setupMethod() {
+    private void setupMethodRadioButton() {
         DatabaseReference methodRef = FirebaseDatabase.getInstance()
                 .getReference(Constants.STATS);
         methodRef.addValueEventListener(new ValueEventListener() {
@@ -44,7 +44,7 @@ public class ViewStatsActivity extends AppCompatActivity {
                     StatsModel model = dataSnapshot.getValue(StatsModel.class);
                     mFoldedResultTV.setText("Folded " + ((model.getNumberOfFolded() * 100) / model.getNumberOfParticipants()) + "%");
                     mCrumpledResultTV.setText("Crumpled " + ((model.getNumberOfCrumpled() * 100) / model.getNumberOfParticipants()) + "%");
-                    setupLocation(model.getNumberOfParticipants());
+                    setupLocationTextView(model.getNumberOfParticipants());
                 }
             }
 
@@ -55,7 +55,7 @@ public class ViewStatsActivity extends AppCompatActivity {
         });
     }
 
-    private void setupThinking() {
+    private void setupThinkingTextView() {
         DatabaseReference thinkingRef = FirebaseDatabase.getInstance()
                 .getReference(Constants.TALKING_TOILET);
         thinkingRef.addValueEventListener(new ValueEventListener() {
@@ -81,7 +81,7 @@ public class ViewStatsActivity extends AppCompatActivity {
         });
     }
 
-    private void setupLocation(final long n) {
+    private void setupLocationTextView(final long n) {
         DatabaseReference locationRef = FirebaseDatabase.getInstance()
                 .getReference(Constants.LOCATION_STATS);
         locationRef.addValueEventListener(new ValueEventListener() {

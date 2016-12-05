@@ -46,34 +46,37 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showProgressDialog();
-                TalkingToiletModel model = new TalkingToiletModel();
-                String thoughts = mThinkingET.getText().toString();
-
-                model.setIsCrumpled(mIsCrumpled + "");
-                model.setThoughts(thoughts);
-                model.setUid(mUID);
-
-
-                DatabaseReference talkingToiletRef = FirebaseDatabase.getInstance()
-                        .getReference(Constants.TALKING_TOILET).child(mUID);
-
-
-                talkingToiletRef.setValue(model).addOnSuccessListener(EditActivity.this, new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        finish();
-                    }
-                }).addOnFailureListener(EditActivity.this, new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(EditActivity.this, "Unable to update", Toast.LENGTH_SHORT).show();
-                    }
-                });
+              sendEditedDataToFirebse();
             }
         });
     }
 
+    private void sendEditedDataToFirebse(){
+        showProgressDialog();
+        TalkingToiletModel model = new TalkingToiletModel();
+        String thoughts = mThinkingET.getText().toString();
+
+        model.setIsCrumpled(mIsCrumpled + "");
+        model.setThoughts(thoughts);
+        model.setUid(mUID);
+
+
+        DatabaseReference talkingToiletRef = FirebaseDatabase.getInstance()
+                .getReference(Constants.TALKING_TOILET).child(mUID);
+
+
+        talkingToiletRef.setValue(model).addOnSuccessListener(EditActivity.this, new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                finish();
+            }
+        }).addOnFailureListener(EditActivity.this, new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(EditActivity.this, "Unable to update", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     private void showProgressDialog() {
         ProgressDialog pd = new ProgressDialog(EditActivity.this);

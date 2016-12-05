@@ -13,6 +13,8 @@ public class TalkingToiletBackendApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        //used to persist data. This saves us from manually creating and handling local storage and
+        //creating services/background tasks/buses to interact with data
         if (!FirebaseApp.getApps(this).isEmpty()) {
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         }

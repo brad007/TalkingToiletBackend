@@ -45,7 +45,7 @@ public class DeleteDialog extends DialogFragment {
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
+                //do nothing. Dialog will close when button is clicked
             }
         });
         return builder.create();
